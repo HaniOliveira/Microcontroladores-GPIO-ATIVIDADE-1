@@ -101,6 +101,21 @@ void led_sequence_and_buzzer()
     gpio_put(LED_VERMELHO, 0);
 }
 
+void leds_acessos_tres()
+{
+    // Acende os 3 leds de uma só vez e apaga após 2000ms
+
+    gpio_put(LED_AZUL, 1);
+    gpio_put(LED_VERDE, 1);
+    gpio_put(LED_VERMELHO, 1);
+    
+    sleep_ms(2000);
+
+    gpio_put(LED_AZUL, 0);
+    gpio_put(LED_VERDE, 0);
+    gpio_put(LED_VERMELHO, 0);
+}
+
 int main()
 {
     stdio_init_all();
@@ -150,6 +165,14 @@ int main()
                 // Toca o buzzer por 1000ms a uma frequência de 1000 Hz
                 play_tone(1000, 1000);
             }
+
+            if (key == '8')
+            {
+                printf("Acionando a função: leds_acessos_tres()\n\n");
+                leds_acessos_tres();
+
+            }
+
         }
         sleep_ms(100);
     }
