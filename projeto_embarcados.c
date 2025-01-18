@@ -2,17 +2,13 @@
 #include "pico/stdlib.h"
 
 
-#define LED1 11
-#define LED2 12
-#define LED3 13
+#define LED_AZUL 11
+#define LED_VERDE 12
+#define LED_VERMELHO 13
+#define BUZZER 21
 
-
-#define BUZZER 28
-
-
-uint8_t columns[4] = {4, 3, 2, 1};
-uint8_t rows[4] = {8, 7, 6, 5};
-
+uint8_t columns[4] = {1, 2, 3, 4};
+uint8_t rows[4] = {5, 6, 7, 8};
 
 char KEY_MAPS[16] = {
     '1', '2', '3', 'A',
@@ -20,16 +16,14 @@ char KEY_MAPS[16] = {
     '7', '8', '9', 'C',
     '*', '0', '#', 'D'};
 
-
 void init_leds() {
-    gpio_init(LED1);
-    gpio_init(LED2);
-    gpio_init(LED3);
-    gpio_set_dir(LED1, GPIO_OUT);
-    gpio_set_dir(LED2, GPIO_OUT);
-    gpio_set_dir(LED3, GPIO_OUT);
+    gpio_init(LED_AZUL);
+    gpio_init(LED_VERDE);
+    gpio_init(LED_VERMELHO);
+    gpio_set_dir(LED_AZUL, GPIO_OUT);
+    gpio_set_dir(LED_VERDE, GPIO_OUT);
+    gpio_set_dir(LED_VERMELHO, GPIO_OUT);
 }
-
 
 void init_keypad() {
     for (uint8_t i = 0; i < 4; i++) {
@@ -42,7 +36,6 @@ void init_keypad() {
         gpio_pull_up(rows[i]);
     }
 }
-
 
 char get_key() {
     for (uint8_t col = 0; col < 4; col++) {
@@ -61,6 +54,39 @@ char get_key() {
     return '\0';
 }
 
+/*Função que configura uma frequência (Tom) e uma duração em milissegundos para o toque do buzzer*/
+void play_tone(uint16_t frequencia, uint16_t duracao) {
+
+    gpio_init(BUZZER);
+    gpio_set_dir(BUZZER, GPIO_OUT);
+    
+    // Calcula o período do sinal em microssegundos
+    uint32_t periodo = 1000000 / frequencia; // Período em microssegundos
+    uint32_t metade_perodo = periodo / 2; // Metade do período
+
+    for (uint16_t i = 0; i < (duracao * 1000) / periodo; i++) { // Duração em milissegundos
+        gpio_put(BUZZER, 1); // Liga o buzzer
+        sleep_us(metade_perodo); // Espera metade do período
+        gpio_put(BUZZER, 0); // Desliga o buzzer
+        sleep_us(metade_perodo); // Espera metade do período
+    }
+}
+
+void led_sequence_and_buzzer() {
+    // Acende e apaga os LEDs em sequência
+    gpio_put(LED_AZUL, 1);
+    sleep_ms(250);
+    gpio_put(LED_AZUL, 0);
+    
+    gpio_put(LED_VERDE, 1);
+    sleep_ms(250);
+    gpio_put(LED_VERDE, 0);
+    
+    gpio_put(LED_VERMELHO, 1);
+    sleep_ms(250);
+    gpio_put(LED_VERMELHO, 0);
+    
+}
 
 int main() {
     stdio_init_all();
@@ -75,9 +101,18 @@ int main() {
             printf("Tecla pressionada: %c\n", key);
 
             
-            gpio_put(LED1, key == '1');
-            gpio_put(LED2, key == '2');
-            gpio_put(LED3, key == '3');
+            gpio_put(LED_AZUL, key == '1');
+            gpio_put(LED_VERDE, key == '2');
+            gpio_put(LED_VERMELHO, key == '3');
+
+             // Chama a função quando a tecla '7' é pressionada
+            if (key == '7') {
+                printf("Acionando a função: led_sequence_and_buzzer()\n\n");
+                led_sequence_and_buzzer();
+
+                // Toca o buzzer por 1000ms a uma frequência de 1000 Hz
+                play_tone(1000, 1000); 
+            }
         }
         sleep_ms(100);
     }
