@@ -166,6 +166,7 @@ int main()
                 play_tone(1000, 1000);
             }
 
+            // Chama a função quando a tecla '8' é pressionada
             if (key == '8')
             {
                 printf("Acionando a função: leds_acessos_tres()\n\n");
