@@ -17,6 +17,8 @@ char KEY_MAPS[16] = {
     '*', '0', '#', 'D'};
 
 void init_leds() {
+
+    // Inicialização e configuração dos LEDs
     gpio_init(LED_AZUL);
     gpio_init(LED_VERDE);
     gpio_init(LED_VERMELHO);
@@ -57,6 +59,7 @@ char get_key() {
 /*Função que configura uma frequência (Tom) e uma duração em milissegundos para o toque do buzzer*/
 void play_tone(uint16_t frequencia, uint16_t duracao) {
 
+    // Inicialização e configuração do Buzzer
     gpio_init(BUZZER);
     gpio_set_dir(BUZZER, GPIO_OUT);
     
@@ -100,7 +103,7 @@ int main() {
         if (key != '\0') {
             printf("Tecla pressionada: %c\n", key);
 
-            
+            // Ao pressionar as teclas '1', '2', e '3', será ligado os LEDs azul, verde e vermelho, respectivamente. 
             gpio_put(LED_AZUL, key == '1');
             gpio_put(LED_VERDE, key == '2');
             gpio_put(LED_VERMELHO, key == '3');
