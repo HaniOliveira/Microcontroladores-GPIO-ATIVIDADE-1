@@ -1,4 +1,4 @@
 [wokwi]
 version = 1
 firmware = 'build/projeto_embarcados.uf2'
-elf = 'build/blink.elf'
+elf = 'build/projeto_embarcados.elf'

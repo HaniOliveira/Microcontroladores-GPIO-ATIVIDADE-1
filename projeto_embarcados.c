@@ -116,6 +116,20 @@ void leds_acessos_tres()
     gpio_put(LED_VERMELHO, 0);
 }
 
+
+
+
+void som(){
+  for (int i = 0; i < 80; i++) {
+    gpio_put(BUZZER, 1);
+    sleep_ms(2);
+    gpio_put(BUZZER, 0);
+    sleep_ms(2);
+  }
+}
+
+
+
 int main()
 {
     stdio_init_all();
@@ -149,6 +163,13 @@ int main()
                 gpio_put(LED_VERDE, 0);
                 gpio_put(LED_VERMELHO, 1);
                 break;
+            
+            
+            case '#':     // Ao pressionar Hashtag buzzer é ativo
+            som();
+            break;  
+            
+            
             // Adicione mais casos para outras teclas se necessário
             default:
                 gpio_put(LED_AZUL, 0);
