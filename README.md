@@ -68,8 +68,9 @@ Além disso, será necessário possuir uma conta no [site oficial do Wokwi](http
     - Tecla 1: acende o LED azul;  
     - Tecla 2: acende o LED verde;  
     - Tecla 3: acende o LED vermelho;  
-    - Tecla 7: acendem os três LEDs e faz o buzzer emitir um som.    
+    - Tecla 7: acendem os três LEDs e faz o buzzer emitir um som;  
+    - Tecla 8: acendem os três LEDs simultaneamente.  
 
 ## Vídeo de Apresentação da Solução
 
-Para mais detalhes sobre a implementação e os resultados, assista ao vídeo da solução: [Link para o vídeo](#).  
+Para mais detalhes sobre a implementação e os resultados, assista ao vídeo da solução: [Link para o vídeo](https://drive.google.com/drive/folders/1VzrdmNunHTSid3CGzcDgErR8hwFos5qG?usp=sharing).  
